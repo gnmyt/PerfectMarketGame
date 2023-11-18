@@ -14,7 +14,6 @@ export const Game = () => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setCurrentState("waiting");
-            socket.emit("SUBMISSION_READY");
         }, 5000);
 
         return () => clearTimeout(timeout);
