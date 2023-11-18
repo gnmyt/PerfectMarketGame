@@ -31,7 +31,7 @@ export const Home = () => {
             </div>
             <div className="action-area">
 
-                <Link className="glassy action-btn" to="/create">
+                <Link className="glassy action-btn create-btn" to="/create">
                     <FontAwesomeIcon icon={faPlusSquare}/>
                     <h2>Raum erstellen</h2>
                 </Link>
