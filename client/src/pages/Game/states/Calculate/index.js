@@ -1,0 +1,1 @@
+export {Calculate as default} from "./Calculate.jsx";
