@@ -5,15 +5,46 @@ export const GroupContext = createContext({});
 
 export const GroupProvider = ({children}) => {
 
+    const [allGroups, setAllGroups] = useState([]);
     const [groups, setGroups] = useState([]);
+    const [round, setRound] = useState([]);
 
     const handleJoin = (group) => {
-        console.log(group)
-        setGroups(groups => [...groups, group]);
+        setGroups(groups => [...groups, {...group, capital: 25000}]);
+    }
+
+    const getGroupById = (id) => {
+        return groups.find(group => group.id === id);
+    }
+
+    const handleRound = (round) => {
+        setRound(current => [...current, round].sort((a, b) => a.price - b.price));
     }
 
     const handleLeave = (group) => {
+        if (group.capital !== 25000) {
+            setGroups(groups_ => {
+                const current = groups_.find(g => g.id === group.id);
+                if (current) setAllGroups(all => [...all, current]);
+                return groups_;
+            });
+        }
         setGroups(groups => groups.filter(g => g.id !== group.id));
+    }
+
+    const updateCapital = (groupId, newCapital) => {
+        socket.emit("UPDATE_CAPITAL", {id: groupId, capital: newCapital});
+
+        setGroups(groups => groups.map(g => {
+            if (g.id === groupId) {
+                return {...g, capital: newCapital};
+            }
+            return g;
+        }));
+    }
+
+    const endRound = () => {
+        setRound([]);
     }
 
     useEffect(() => {
@@ -27,7 +58,7 @@ export const GroupProvider = ({children}) => {
     }, []);
 
     return (
-        <GroupContext.Provider value={{groups}}>
+        <GroupContext.Provider value={{groups, round, handleRound, getGroupById, updateCapital, endRound, allGroups}}>
             {children}
         </GroupContext.Provider>
     )
