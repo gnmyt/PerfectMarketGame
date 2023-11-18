@@ -7,6 +7,8 @@ footer
   align-items: center
   margin: 0 2rem
   user-select: none
+  flex-wrap: wrap
+  gap: 1rem
 
 .footer-left
   display: flex
@@ -56,3 +58,13 @@ footer
 
 footer *
   z-index: 2
+
+
+
+@media screen and (max-width: 700px)
+  footer
+    justify-content: center
+
+@media screen and (max-width: 628px)
+  .footer-info
+    display: none
