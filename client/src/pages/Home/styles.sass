@@ -1,2 +1,72 @@
-.home-page h1
-  margin: 0
+@import "@styles/colors"
+
+.home-page
+  display: flex
+  justify-content: space-around
+  align-items: center
+  height: 100%
+  user-select: none
+
+  .info-area
+    padding: 1rem 1.5rem
+    width: 21rem
+
+    h2
+      margin: 0
+
+    .donate a
+      text-decoration: none
+      color: $primary
+
+      &:hover
+        text-decoration: underline
+
+    .info-area-inner
+      padding: 0.5rem 0.6rem
+
+  .action-area
+    display: flex
+    gap: 1rem
+
+
+.github-link
+  display: flex
+  padding: 0.5rem 1rem
+  align-items: center
+  justify-content: center
+  gap: 1rem
+  text-decoration: none
+  color: $text
+  transition: 0.2s
+
+  img
+    width: 2.5rem
+    height: 2.5rem
+    border-radius: 50%
+
+  h2
+    margin: 0
+    font-size: 1.28rem
+
+  &:hover
+    transform: scale(1.02)
+  &:active
+    transform: rotate(-3deg) scale(0.95)
+
+.action-btn
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  padding: 2rem 0
+  width: 10rem
+  gap: 1rem
+  color: $text
+  text-decoration: none
+
+  svg
+    font-size: 38pt
+
+  h2
+    margin: 0
+    text-align: center
