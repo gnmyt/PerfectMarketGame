@@ -8,7 +8,7 @@ import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import {useNavigate} from "react-router";
 
 export const DOMAIN = "pmg.gnmyt.dev";
-export const BASE_URL = `https://${DOMAIN}/join?code=`;
+export const BASE_URL = `https://${DOMAIN}/join/`;
 
 export const Create = () => {
     const [code, setCode] = useState("LOADING");
