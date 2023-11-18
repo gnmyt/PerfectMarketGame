@@ -1,0 +1,26 @@
+@import "@styles/colors"
+
+.background svg
+  position: absolute
+  animation: moveUp 40s ease-in-out infinite alternate
+  color: $error
+  z-index: 0
+
+.background svg:nth-child(even)
+  animation: moveUp 50s ease-in-out infinite alternate-reverse
+  color: $primary
+
+.background svg:nth-child(3n+4)
+  color: $warn
+
+.background svg:nth-child(4n+5)
+  color: $purple
+
+.background svg:nth-child(7n+6)
+  color: $text
+
+@keyframes moveUp
+  0%
+    transform: translateY(0) rotate(0deg)
+  100%
+    transform: translateY(-80vh) rotate(45deg)
