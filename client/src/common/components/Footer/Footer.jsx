@@ -7,7 +7,7 @@ import {faHome} from "@fortawesome/free-solid-svg-icons";
 export const Footer = () => {
     const location = useLocation();
 
-    const isLegalPage = location.pathname === "/imprint" || location.pathname === "/privacy";
+    const isLegalPage = location.pathname === "/imprint" || location.pathname === "/privacy" || location.pathname === "/end";
 
     return (
         <footer>
