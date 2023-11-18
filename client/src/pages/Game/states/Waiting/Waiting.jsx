@@ -20,6 +20,8 @@ export const Waiting = ({setState}) => {
             setReadyGroups(groups => [...groups, submission.id]);
         });
 
+        socket.emit("SUBMISSION_READY");
+
         return () => {
             socket.off("RECEIVED");
         }
