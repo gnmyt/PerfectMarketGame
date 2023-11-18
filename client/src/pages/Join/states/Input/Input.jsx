@@ -1,8 +1,7 @@
 import Button from "@/common/components/Button";
-import {faPaperPlane, faRightToBracket, faWarning} from "@fortawesome/free-solid-svg-icons";
+import {faPaperPlane, faWarning} from "@fortawesome/free-solid-svg-icons";
 import {useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
-import "./styles.sass";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const Input = ({setState}) => {
