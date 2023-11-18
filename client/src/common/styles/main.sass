@@ -1,0 +1,26 @@
+@import "colors"
+
+body, html
+  font-family: 'Inter', sans-serif
+  margin: 0
+  padding: 0
+  background-color: $background
+  color: $text
+  height: 100vh
+
+
+.glassy
+  background-color: rgba(255, 255, 255, 0.14)
+  border: 2px solid rgba(255, 255, 255, 0.30)
+  backdrop-filter: blur(10px)
+  border-radius: 10px
+
+::-webkit-scrollbar
+  width: 13px
+
+::-webkit-scrollbar-thumb
+  background: darken($background, 10%)
+  border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover
+  background: darken($background, 5%)
