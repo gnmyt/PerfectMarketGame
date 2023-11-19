@@ -6,6 +6,7 @@ import Background from "@/common/components/Background";
 import {socket} from "@/common/utils/socket.js";
 import {useEffect} from "react";
 import {GroupProvider} from "@/common/contexts/GroupContext.jsx";
+import {MusicProvider} from "@/common/contexts/MusicContext.jsx";
 
 export const Root = () => {
     const outlet = useOutlet();
@@ -19,19 +20,21 @@ export const Root = () => {
     }, []);
 
     return (
-        <div className="root">
-            <Header />
+        <MusicProvider>
+            <div className="root">
+                <Header/>
 
-            <main>
-                <GroupProvider>
-                    {outlet}
-                </GroupProvider>
-            </main>
+                <main>
+                    <GroupProvider>
+                        {outlet}
+                    </GroupProvider>
+                </main>
 
-            <Footer />
+                <Footer/>
 
-            <Background />
+                <Background/>
 
-        </div>
+            </div>
+        </MusicProvider>
     );
 }
