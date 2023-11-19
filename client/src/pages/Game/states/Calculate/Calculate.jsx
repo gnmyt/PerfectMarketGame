@@ -3,6 +3,10 @@ import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import {useContext, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import InterfaceSound from "@/common/sounds/interface.mp3";
+import Sound from "react-sound";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
+import BeginSound from "@/common/sounds/begin.mp3";
 
 const localeOptions = {
     style: "decimal",
@@ -15,6 +19,8 @@ export const Calculate = ({setState}) => {
     const {round, getGroupById, updateCapital, endRound} = useContext(GroupContext);
 
     const [animatedGroups, setAnimatedGroups] = useState([]);
+
+    const {musicEnabled} = useContext(MusicContext);
 
     const [nachfrage, setNachfrage] = useState(0);
 
@@ -29,11 +35,8 @@ export const Calculate = ({setState}) => {
 
         setAnimatedGroups(old => [...old, {...current, profit, name: getGroupById(current.id).name}]);
 
-        console.log(current.id, getGroupById(current.id).capital, profit);
-
         updateCapital(current.id, getGroupById(current.id).capital + profit);
     }
-
 
     useEffect(() => {
         if (round.length === 0) {
@@ -51,7 +54,7 @@ export const Calculate = ({setState}) => {
 
     useEffect(() => {
         let avg = 0;
-        round.forEach(r => avg += r.amount);
+        round.forEach(r => avg += r.price);
         avg /= round.length;
 
         setNachfrage(avg < 1800 ? 50 : avg > 2200 ? 30 : 40);
@@ -60,11 +63,17 @@ export const Calculate = ({setState}) => {
 
     return (
         <div className="calculate-state">
+
             <div className="calculate-container">
-                {animatedGroups.length === 0 && <h2 className="hint">Die Kuchen werden verkauft...</h2>}
+                {animatedGroups.length === 0 && <>
+                    <Sound url={BeginSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 60 : 0} loop={false}/>
+                    <h2 className="hint">Die Kuchen werden verkauft...</h2>
+                </>}
                 {animatedGroups.map((r, i) => {
                     return (
                         <div key={i} className="glassy round">
+                            {animatedGroups.length - 1 === i && musicEnabled &&
+                                <Sound url={InterfaceSound} playStatus={Sound.status.PLAYING} volume={50} loop={false}/>}
                             <div className="round-item">
                                 <p>Unternehmen</p>
                                 <h2>{r.name}</h2>
