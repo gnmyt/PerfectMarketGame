@@ -1,7 +1,7 @@
 import "./styles.sass";
 import GitHubImage from "@/common/images/GitHub.png"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlusSquare, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 
 export const DONATION_LINK = "https://ko-fi.com/gnmyt";
@@ -32,7 +32,7 @@ export const Home = () => {
             <div className="action-area">
 
                 <Link className="glassy action-btn create-btn" to="/create">
-                    <FontAwesomeIcon icon={faPlusSquare}/>
+                    <FontAwesomeIcon icon={faPlus}/>
                     <h2>Raum erstellen</h2>
                 </Link>
 
