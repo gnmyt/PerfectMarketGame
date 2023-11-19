@@ -2,12 +2,17 @@ import "./styles.sass";
 import Logo from "@/common/images/bs2ab.png";
 import {Link, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHome} from "@fortawesome/free-solid-svg-icons";
+import {faHome, faVolumeHigh, faVolumeMute} from "@fortawesome/free-solid-svg-icons";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
+import {useContext} from "react";
 
 export const Footer = () => {
     const location = useLocation();
 
+    const {musicEnabled, setMusicEnabled} = useContext(MusicContext);
+
     const isLegalPage = location.pathname === "/imprint" || location.pathname === "/privacy" || location.pathname === "/end";
+    const isIngame = location.pathname === "/game" || location.pathname === "/end" || location.pathname === "/create";
 
     return (
         <footer>
@@ -20,6 +25,10 @@ export const Footer = () => {
                 {isLegalPage && <Link className="glassy footer-home" to="/">
                         <FontAwesomeIcon icon={faHome}/>
                     </Link>}
+
+                {isIngame && <div className="glassy footer-home"  onClick={() => setMusicEnabled(!musicEnabled)}>
+                    <FontAwesomeIcon icon={musicEnabled ? faVolumeHigh : faVolumeMute}/>
+                </div>}
             </div>
 
             <div className="glassy footer-legal">
