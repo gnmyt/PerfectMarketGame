@@ -32,7 +32,8 @@ export const Footer = () => {
                 </div>}
             </div>
 
-            <div className={"glassy footer-legal" + (isIngame || location.pathname === "/join" ? " ingame" : "")}>
+            <div className={"glassy footer-legal" + ((isIngame || location.pathname === "/join")
+                && location.pathname !== "/end" ? " ingame" : "")}>
                 <Link to={"/privacy"}>Datenschutz</Link>
                 <Link to={"/imprint"}>Impressum</Link>
             </div>
