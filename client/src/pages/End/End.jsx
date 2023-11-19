@@ -24,7 +24,7 @@ export const End = () => {
 
     return (
         <div className="end-page">
-            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={false}/>
+            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={true}/>
             {[...groups, ...allGroups].map(group => (
                 <div key={group.id} className="glassy group">
                     <div className="group-item">
