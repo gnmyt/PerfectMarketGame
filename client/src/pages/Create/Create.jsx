@@ -35,7 +35,7 @@ export const Create = () => {
 
     return (
         <div className="create-page">
-            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={false}/>
+            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={true}/>
             <div className="info-area">
                 <h2>Geht auf <span>{DOMAIN}</span> und gibt den Code <span>{code}</span> ein.</h2>
                 {groups.length > 1 && <Button text={`Mit ${groups.length} Gruppen starten`} icon={faPlay}
