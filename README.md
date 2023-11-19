@@ -38,6 +38,22 @@ Das Spiel geht so lange, bis alle Gruppen pleite sind. Die Gruppe, die am längs
 Das Spiel ist noch in der Entwicklung und kann daher noch einige Fehler enthalten. Solltest du einen Fehler finden,
 kannst du diesen gerne [hier](https://github.com/gnmyt/PerfectMarketGame/issues) melden.
 
+## Credits
+
+Das Spiel beinhaltet einige Assets, welche von Dritten erstellt wurden. Diese sind hier aufgelistet:
+
+### Musik
+
+- [Kevin MacLeod - Pixelland](https://www.youtube.com/watch?v=HUCjaaQR6cs) auf YouTube 🎵
+- [Vibe Mountain - Operatic 3](https://www.youtube.com/watch?v=CO6gpC4het8) auf YouTube 🎵
+
+### Sound-Effekte
+
+- [UNIVERSFIELD - Interface](https://pixabay.com/sound-effects/interface-124464/) auf Pixabay 🔊
+- [SouldProdMusic - Futuristic Logo](https://pixabay.com/sound-effects/futuristic-logo-3-versions-149429/) auf Pixabay
+  🔊
+- [LordSonny - Cinematic Boom](https://pixabay.com/de/sound-effects/cinematic-boom-171285/) auf Pixabay 🔊
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
