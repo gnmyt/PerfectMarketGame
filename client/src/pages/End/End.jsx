@@ -2,7 +2,9 @@ import "./styles.sass";
 import {useContext, useEffect} from "react";
 import {socket} from "@/common/utils/socket.js";
 import {GroupContext} from "@/common/contexts/GroupContext.jsx";
-import {Navigate} from "react-router";
+import Sound from "react-sound";
+import ThemeSound from "@/common/sounds/end.mp3";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 
 const localeOptions = {
     style: "decimal",
@@ -14,8 +16,7 @@ const localeOptions = {
 export const End = () => {
 
     const {groups, allGroups} = useContext(GroupContext);
-
-    if (groups.length === 0) return <Navigate to="/"/>;
+    const {musicEnabled} = useContext(MusicContext);
 
     useEffect(() => {
         socket.disconnect();
@@ -23,6 +24,7 @@ export const End = () => {
 
     return (
         <div className="end-page">
+            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={false}/>
             {[...groups, ...allGroups].map(group => (
                 <div key={group.id} className="glassy group">
                     <div className="group-item">
