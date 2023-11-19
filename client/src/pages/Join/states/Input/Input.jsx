@@ -37,12 +37,12 @@ export const Input = ({setState}) => {
             </div>}
             <div className="input-area">
                 <h3>Preis</h3>
-                <input type="text" placeholder="Preis" className="glassy"
+                <input type="number" placeholder="Preis" className="glassy"
                        onChange={(e) => setPrice(e.target.value)} value={price}/>
             </div>
             <div className="input-area">
                 <h3>Absatzmenge</h3>
-                <input type="text" placeholder="Menge" className="glassy"
+                <input type="number" placeholder="Menge" className="glassy"
                        onChange={(e) => setAmount(e.target.value)} value={amount}/>
             </div>
             <Button text="Abgeben" onClick={submit} icon={faPaperPlane} />
