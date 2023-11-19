@@ -6,6 +6,9 @@ import Button from "@/common/components/Button";
 import {faPlay} from "@fortawesome/free-solid-svg-icons";
 import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import {useNavigate} from "react-router";
+import Sound from "react-sound";
+import ThemeSound from "@/common/sounds/end.mp3";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 
 export const DOMAIN = "pmg.gnmyt.dev";
 export const BASE_URL = `https://${DOMAIN}/join/`;
@@ -15,6 +18,7 @@ export const Create = () => {
 
     const navigate = useNavigate();
 
+    const {musicEnabled} = useContext(MusicContext);
     const {groups} = useContext(GroupContext);
 
     const getRoomCode = () => {
@@ -31,13 +35,14 @@ export const Create = () => {
 
     return (
         <div className="create-page">
+            <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={false}/>
             <div className="info-area">
                 <h2>Geht auf <span>{DOMAIN}</span> und gibt den Code <span>{code}</span> ein.</h2>
                 {groups.length > 1 && <Button text={`Mit ${groups.length} Gruppen starten`} icon={faPlay}
                                               onClick={() => navigate("/game")}/>}
             </div>
             <div className="qr-area">
-                <QRCodeSVG value={BASE_URL + code} />
+                <QRCodeSVG value={BASE_URL + code}/>
             </div>
         </div>
     )
