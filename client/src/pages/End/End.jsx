@@ -20,6 +20,7 @@ export const End = () => {
 
     useEffect(() => {
         socket.disconnect();
+        socket.connect();
     }, []);
 
     return (
