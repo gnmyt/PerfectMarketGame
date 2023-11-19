@@ -6,11 +6,15 @@ import Waiting from "@/pages/Game/states/Waiting";
 import Calculate from "@/pages/Game/states/Calculate";
 import Sound from "react-sound";
 import HintSound from "@/common/sounds/hint.mp3";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 
 export const Game = () => {
     const {groups} = useContext(GroupContext);
 
     const [currentState, setCurrentState] = useState("hint");
+
+
+    const {musicEnabled} = useContext(MusicContext);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -25,7 +29,7 @@ export const Game = () => {
     return (
         <div className="game-page">
             {currentState === "hint" && <>
-                <Sound url={HintSound} playStatus={Sound.status.PLAYING} volume={60} loop={false}/>
+                <Sound url={HintSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 60 : 0} loop={false}/>
                 <h2 className="hint">
                     <span>Ziel</span>: Erhalte durch den Verkauf von Kuchen
                     so viel Gewinn wie möglich.
