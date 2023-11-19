@@ -15,7 +15,7 @@ export const Game = () => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setCurrentState("waiting");
-        }, 5000);
+        }, 6000);
 
         return () => clearTimeout(timeout);
     }, []);
