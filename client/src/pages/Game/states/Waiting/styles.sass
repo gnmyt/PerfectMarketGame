@@ -17,10 +17,12 @@
 
     span
       color: $primary
+      animation: rotateHue 5s linear infinite
 
   .info-area
     padding: 1rem
     width: 20rem
+    animation: bounceIn 0.7s ease-out
 
     h2
       margin: 0
@@ -29,3 +31,10 @@
     span
       color: $primary
       font-weight: 800
+
+
+@keyframes rotateHue
+  0%
+    filter: hue-rotate(0deg)
+  100%
+    filter: hue-rotate(360deg)
