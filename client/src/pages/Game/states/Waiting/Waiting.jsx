@@ -5,6 +5,9 @@ import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import {useContext, useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
 import {Navigate} from "react-router";
+import Sound from "react-sound";
+import BackgroundMusic from "@/common/sounds/background.mp3";
+import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 
 export const Waiting = ({setState}) => {
 
@@ -13,6 +16,7 @@ export const Waiting = ({setState}) => {
     if (groups.length === 1) return <Navigate to="/end"/>;
 
     const [readyGroups, setReadyGroups] = useState([]);
+    const {musicEnabled} = useContext(MusicContext);
 
     useEffect(() => {
         socket.on("RECEIVED", (submission) => {
@@ -37,6 +41,11 @@ export const Waiting = ({setState}) => {
         let notReady = groups.filter(group => !readyGroups.includes(group.id));
         let names = notReady.map(group => group.name);
 
+        if (names.length === 0) {
+            setState("calculate");
+            return;
+        }
+
         if (names.length === 1) return <span>{names[0]}</span>;
 
         let last = names.pop();
@@ -46,6 +55,9 @@ export const Waiting = ({setState}) => {
 
     return (
         <div className="waiting-state">
+            <Sound url={BackgroundMusic} playStatus={Sound.status.PLAYING}
+                     volume={musicEnabled ? 50 : 0} loop={true}/>
+
             <div className="waiting-area">
                 <FontAwesomeIcon icon={faHourglassHalf} bounce/>
                 <h2>Warten auf {getFriendlyNames()}</h2>
