@@ -87,6 +87,19 @@ io.on("connection", (socket) => {
             return;
         }
 
+        try {
+            const priceInt = parseInt(price);
+            const amountInt = parseInt(amount);
+
+            if (isNaN(priceInt) || isNaN(amountInt)) {
+                callback(false);
+                return;
+            }
+        } catch (e) {
+            callback(false);
+            return;
+        }
+
         if (price < 0 || price > 10000 || amount < 0 || amount > 20) {
             callback(false);
             return;
