@@ -24,3 +24,11 @@ body, html
 
 ::-webkit-scrollbar-thumb:hover
   background: darken($background, 5%)
+
+@keyframes bounceIn
+  from
+    transform: scale(-0.95) rotate(3deg)
+  50%
+    transform: scale(1.02) rotate(-3deg)
+  to
+    transform: scale(1) rotate(0deg)
