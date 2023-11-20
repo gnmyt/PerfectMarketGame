@@ -20,18 +20,53 @@
       animation: rotateHue 5s linear infinite
 
   .info-area
-    padding: 1rem
     width: 20rem
     animation: bounceIn 0.7s ease-out
 
+    .info-area-content
+      padding: 1rem
+      animation: fadeTextInOut 15s linear infinite
+
     h2
       margin: 0
+
     p
       margin-bottom: 0
+
     span
       color: $primary
       font-weight: 800
 
+    .progress-bar
+      margin: 0 0.05rem
+      height: 0.4rem
+      background-color: $text
+      width: 100%
+      border-radius: 0 5px 5px 5px
+      transition: width 0.5s ease-out
+      animation: progressDown 15s linear infinite
+
+@keyframes fadeTextInOut
+  0%
+    opacity: 0
+    transform: scale(0.7) translateX(3rem) rotate(5deg)
+  3%
+    opacity: 1
+    transform: scale(1)
+  97%
+    opacity: 1
+    transform: scale(1)
+  100%
+    opacity: 0
+    transform: scale(0.7) translateX(-3rem) rotate(-5deg)
+
+@keyframes progressDown
+  0%
+    width: 100%
+  98%
+    width: 0
+  100%
+    width: 100%
 
 @keyframes rotateHue
   0%
