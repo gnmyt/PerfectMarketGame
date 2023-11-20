@@ -2,6 +2,12 @@
 
 .calculate-state
   display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+.calculate-state-inner
+  display: flex
   align-items: start
   gap: 2rem
 
@@ -10,16 +16,20 @@
   flex-direction: column
   gap: 1rem
   user-select: none
-  width: 55rem
+  align-items: center
+
+  .btn
+    animation: roundIn 0.8s ease-out
 
   .round
+    max-width: 60rem
     display: flex
     padding: 1rem 2rem
     transition: 1s ease-in-out
     animation: roundIn 0.7s ease-out
 
     .round-item
-      width: 12rem
+      width: 14rem
 
       h2, p
         margin: 0
@@ -60,3 +70,9 @@
     transform: scale(0.9)
   100%
     transform: scale(1)
+
+@media screen and (max-width: 1300px)
+  .calculate-container .round
+    max-width: 50rem
+  .round-item:nth-child(4)
+    display: none
