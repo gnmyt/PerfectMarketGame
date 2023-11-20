@@ -19,7 +19,7 @@ export const Create = () => {
     const navigate = useNavigate();
 
     const {musicEnabled} = useContext(MusicContext);
-    const {groups} = useContext(GroupContext);
+    const {groups, resetGame} = useContext(GroupContext);
 
     const getRoomCode = () => {
         socket.emit("CREATE_ROOM", undefined, (data) => {
@@ -29,6 +29,8 @@ export const Create = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => getRoomCode(), 1000);
+
+        resetGame();
 
         return () => clearTimeout(timeout);
     }, []);
