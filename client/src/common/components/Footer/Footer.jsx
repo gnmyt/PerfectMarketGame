@@ -16,7 +16,7 @@ export const Footer = () => {
 
     return (
         <footer>
-            <div className={"footer-left" + ((isIngame || location.pathname === "/join")
+            <div className={"footer-left" + ((isIngame || location.pathname.startsWith("/join"))
                 && location.pathname !== "/end" ? " ingame" : "")}>
                 <a title="BS2AB" href="https://www.bs2ab.de/" target="_blank" rel="noreferrer" className="glassy footer-info">
                     <img src={Logo} alt="Logo"/>
@@ -32,7 +32,7 @@ export const Footer = () => {
                 </div>}
             </div>
 
-            <div className={"glassy footer-legal" + ((isIngame || location.pathname === "/join")
+            <div className={"glassy footer-legal" + ((isIngame || location.pathname.startsWith("/join"))
                 && location.pathname !== "/end" ? " ingame" : "")}>
                 <Link to={"/privacy"}>Datenschutz</Link>
                 <Link to={"/imprint"}>Impressum</Link>
