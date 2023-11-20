@@ -49,7 +49,7 @@ export const Join = () => {
             </div>
             {state === "join" && <Code setState={setState}/>}
             {state === "waiting" && <FontAwesomeIcon icon={faHourglassHalf} bounce className="waiting-icon" /> }
-            {state === "input" && <Input setState={setState}/>}
+            {state === "input" && <Input setState={setState} capital={capital}/>}
             {state === "end" && <div className="game-end">
                 <h1>Ende</h1>
                 <p>Das Spiel ist vorbei!</p>
