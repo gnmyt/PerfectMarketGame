@@ -5,6 +5,7 @@ import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import Sound from "react-sound";
 import ThemeSound from "@/common/sounds/end.mp3";
 import {MusicContext} from "@/common/contexts/MusicContext.jsx";
+import {Navigate} from "react-router";
 
 const localeOptions = {
     style: "decimal",
@@ -23,10 +24,13 @@ export const End = () => {
         socket.connect();
     }, []);
 
+    if (groups.length === 0 && allGroups.length === 0)
+        return <Navigate to="/"/>;
+
     return (
         <div className="end-page">
             <Sound url={ThemeSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 50 : 0} loop={true}/>
-            {[...groups, ...allGroups].map(group => (
+            {[...groups, ...allGroups].sort((a, b) => b.capital - a.capital).map(group => (
                 <div key={group.id} className="glassy group">
                     <div className="group-item">
                         <p>Unternehmen</p>
