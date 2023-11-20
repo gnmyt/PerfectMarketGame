@@ -9,7 +9,7 @@ import HintSound from "@/common/sounds/hint.mp3";
 import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 
 export const Game = () => {
-    const {groups} = useContext(GroupContext);
+    const {groups, allGroups} = useContext(GroupContext);
 
     const [currentState, setCurrentState] = useState("hint");
 
@@ -24,7 +24,8 @@ export const Game = () => {
         return () => clearTimeout(timeout);
     }, []);
 
-    if (groups.length === 0) return <Navigate to="/"/>;
+    if (groups.length === 0 && allGroups.length === 0)
+        return <Navigate to="/"/>;
 
     return (
         <div className="game-page">
