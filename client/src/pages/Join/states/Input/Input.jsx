@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export const Input = ({setState}) => {
+export const Input = ({setState, capital}) => {
 
     const [price, setPrice] = useState(1000);
     const [amount, setAmount] = useState(10);
@@ -12,6 +12,11 @@ export const Input = ({setState}) => {
     const [error, setError] = useState("");
 
     const submit = () => {
+        if ((1000 * amount + 4000) > capital) {
+            setError("Zu wenig Kapital");
+            return;
+        }
+
         socket.emit("SUBMIT", {price, amount}, (data) => {
             if (data) {
                 setState("waiting");
@@ -22,9 +27,10 @@ export const Input = ({setState}) => {
     }
 
     useEffect(() => {
+        if (!error) return;
         const timeout = setTimeout(() => {
             setError("");
-        }, 30000);
+        }, 5000);
 
         return () => clearTimeout(timeout);
     }, [error]);
