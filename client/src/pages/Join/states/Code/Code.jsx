@@ -26,9 +26,10 @@ export const Code = ({setState}) => {
     }
 
     useEffect(() => {
+        if (!error) return;
         const timeout = setTimeout(() => {
             setError("");
-        }, 30000);
+        }, 5000);
 
         return () => clearTimeout(timeout);
     }, [error]);
