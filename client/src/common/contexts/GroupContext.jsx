@@ -47,6 +47,12 @@ export const GroupProvider = ({children}) => {
         setRound([]);
     }
 
+    const resetGame = () => {
+        setAllGroups([]);
+        setGroups([]);
+        setRound([]);
+    }
+
     useEffect(() => {
         socket.on("JOINED", handleJoin);
         socket.on("LEFT", handleLeave);
@@ -58,7 +64,7 @@ export const GroupProvider = ({children}) => {
     }, []);
 
     return (
-        <GroupContext.Provider value={{groups, round, handleRound, getGroupById, updateCapital, endRound, allGroups}}>
+        <GroupContext.Provider value={{groups, round, handleRound, getGroupById, updateCapital, endRound, allGroups, resetGame}}>
             {children}
         </GroupContext.Provider>
     )
