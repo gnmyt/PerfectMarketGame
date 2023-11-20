@@ -13,6 +13,15 @@ export const Code = ({setState}) => {
     const [code, setCode] = useState(params.code || "");
     const [company, setCompany] = useState("");
 
+    const updateCompany = (event) => {
+        if (event.target.value.length > 20) {
+            setError("Name zu lang");
+            return;
+        }
+
+        setCompany(event.target.value);
+    }
+
     const [error, setError] = useState("");
 
     const joinRoom = () => {
@@ -37,7 +46,7 @@ export const Code = ({setState}) => {
     return (
         <>
             {error && <div className="error">
-                <FontAwesomeIcon icon={faWarning} />
+                <FontAwesomeIcon icon={faWarning}/>
                 <p>{error}</p>
             </div>}
             <div className="input-area">
@@ -48,9 +57,9 @@ export const Code = ({setState}) => {
             <div className="input-area">
                 <h3>Name des Unternehmens</h3>
                 <input type="text" placeholder="Name des Unternehmens" className="glassy"
-                       onChange={(e) => setCompany(e.target.value)} value={company}/>
+                       onChange={updateCompany} value={company}/>
             </div>
-            <Button text="Beitreten" onClick={joinRoom} icon={faRightToBracket} />
+            <Button text="Beitreten" onClick={joinRoom} icon={faRightToBracket}/>
         </>
     )
 }
