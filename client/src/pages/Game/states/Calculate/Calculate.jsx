@@ -2,12 +2,14 @@ import "./styles.sass";
 import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 import {useContext, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faForward, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faForward, faShoppingCart, faStop} from "@fortawesome/free-solid-svg-icons";
 import InterfaceSound from "@/common/sounds/interface.mp3";
 import Sound from "react-sound";
 import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 import BeginSound from "@/common/sounds/begin.mp3";
 import Button from "@/common/components/Button";
+import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
+import {useNavigate} from "react-router";
 
 const localeOptions = {
     style: "decimal",
@@ -16,8 +18,12 @@ const localeOptions = {
     signDisplay: "never"
 }
 
-export const Calculate = ({setState}) => {
+export const Calculate = ({setState, currentRound}) => {
     const {round, getGroupById, updateCapital, endRound} = useContext(GroupContext);
+
+    const {rounds} = useContext(SettingsContext);
+
+    const navigate = useNavigate();
 
     const [animatedGroups, setAnimatedGroups] = useState([]);
 
@@ -83,6 +89,9 @@ export const Calculate = ({setState}) => {
 
             <div className="calculate-state-inner">
                 <div className="calculate-container">
+                    <div className="glassy current-round">
+                        <h2>Runde {currentRound}</h2>
+                    </div>
                     {animatedGroups.length === 0 && <>
                         <Sound url={BeginSound} playStatus={Sound.status.PLAYING} volume={musicEnabled ? 60 : 0} loop={false}/>
                         <h2 className="hint">Die Kuchen werden verkauft...</h2>
@@ -130,7 +139,10 @@ export const Calculate = ({setState}) => {
                             </div>
                         )
                     })}
-                    {showNewCapital && <Button text="Nächste Runde" onClick={() => setState("waiting")} icon={faForward}/>}
+                    <div className="button-area">
+                        {showNewCapital && <Button text="Nächste Runde" onClick={() => setState("waiting")} icon={faForward}/>}
+                        {showNewCapital && currentRound >= rounds && <Button text="Spiel beenden" onClick={() => navigate("/end")} icon={faStop}/>}
+                    </div>
                 </div>
                 <div className="glassy customer" style={{marginTop: (6.2 * animatedGroups.length) + "rem"}}>
                     <FontAwesomeIcon icon={faShoppingCart} />
