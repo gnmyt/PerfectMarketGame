@@ -7,6 +7,7 @@ import {socket} from "@/common/utils/socket.js";
 import {useEffect} from "react";
 import {GroupProvider} from "@/common/contexts/GroupContext.jsx";
 import {MusicProvider} from "@/common/contexts/MusicContext.jsx";
+import {SettingsProvider} from "@/common/contexts/SettingsProvider.jsx";
 
 export const Root = () => {
     const outlet = useOutlet();
@@ -26,7 +27,9 @@ export const Root = () => {
 
                 <main>
                     <GroupProvider>
-                        {outlet}
+                        <SettingsProvider>
+                            {outlet}
+                        </SettingsProvider>
                     </GroupProvider>
                 </main>
 
