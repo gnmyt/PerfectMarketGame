@@ -12,7 +12,7 @@ export const Game = () => {
     const {groups, allGroups} = useContext(GroupContext);
 
     const [currentState, setCurrentState] = useState("hint");
-
+    const [currentRound, setCurrentRound] = useState(0);
 
     const {musicEnabled} = useContext(MusicContext);
 
@@ -23,6 +23,10 @@ export const Game = () => {
 
         return () => clearTimeout(timeout);
     }, []);
+
+    useEffect(() => {
+        if (currentState === "waiting") setCurrentRound(current => current + 1);
+    }, [currentState]);
 
     if (groups.length === 0 && allGroups.length === 0)
         return <Navigate to="/"/>;
@@ -37,7 +41,7 @@ export const Game = () => {
                 </h2>
             </>}
             {currentState === "waiting" && <Waiting setState={setCurrentState}/>}
-            {currentState === "calculate" && <Calculate setState={setCurrentState}/>}
+            {currentState === "calculate" && <Calculate setState={setCurrentState} currentRound={currentRound}/>}
         </div>
     )
 }
