@@ -17,6 +17,8 @@ export const Join = () => {
     const [state, setState] = useState("join");
 
     const [capital, setCapital] = useState(25000);
+    const [maxWin, setMaxWin] = useState(0);
+    const [cost, setCost] = useState(0);
 
     const handleEnd = () => {
         setState("end");
@@ -44,12 +46,15 @@ export const Join = () => {
 
     return (
         <div className="join-page">
-            <div className="glassy capital">
+            {cost !== 0 && <div className="glassy capital">
                 <h2>Firmenkapital: {capital.toLocaleString("de-DE", localeOptions)} €</h2>
-            </div>
+                <h3>Produktionskosten: <span className="in-red">- {cost.toLocaleString("de-DE", localeOptions)} €</span></h3>
+                {maxWin > 0 && <h3>Potenzieller Gewinn: <span className="in-green">+ {maxWin.toLocaleString("de-DE", localeOptions)} €</span></h3>}
+                {maxWin < 0 && <h3>Potenzieller Gewinn: <span className="in-red">- {maxWin.toLocaleString("de-DE", localeOptions)} €</span></h3>}
+            </div>}
             {state === "join" && <Code setState={setState}/>}
-            {state === "waiting" && <FontAwesomeIcon icon={faHourglassHalf} bounce className="waiting-icon" /> }
-            {state === "input" && <Input setState={setState} capital={capital}/>}
+            {state === "waiting" && <FontAwesomeIcon icon={faHourglassHalf} bounce className="waiting-icon" style={{marginTop: "1rem"}} /> }
+            {state === "input" && <Input setState={setState} capital={capital} setWin={setMaxWin} setCost={setCost}/>}
             {state === "end" && <div className="game-end">
                 <h1>Ende</h1>
                 <p>Das Spiel ist vorbei!</p>
