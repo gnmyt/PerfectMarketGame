@@ -1,15 +1,34 @@
 import "./styles.sass";
 import GitHubImage from "@/common/images/GitHub.png"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import {faGear, faPlus, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
+import {useRef, useState} from "react";
+import {useNavigate} from "react-router";
+import Dialog from "@/pages/Home/components/Dialog";
 
 export const DONATION_LINK = "https://ko-fi.com/gnmyt";
 export const GITHUB_LINK = "https://github.com/gnmyt/PerfectMarketGame";
 
 export const Home = () => {
+
+    const roomSettingsRef = useRef(null);
+    const [settingsOpen, setSettingsOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const openCreateRoom = (event) => {
+        event.preventDefault();
+
+        if (event.target === roomSettingsRef.current || roomSettingsRef.current.contains(event.target)) return;
+
+        navigate("/create");
+    }
+
+    const openRoomSettings = () => setSettingsOpen(!settingsOpen);
+
     return (
         <div className="home-page">
+            {settingsOpen && <Dialog onClose={openRoomSettings}/>}
             <div className="glassy info-area">
                 <h2>Worum geht's?</h2>
                 <div className="info-area-inner">
@@ -31,8 +50,9 @@ export const Home = () => {
             </div>
             <div className="action-area">
 
-                <Link className="glassy action-btn create-btn" to="/create">
+                <Link className="glassy action-btn create-btn" onClick={openCreateRoom}>
                     <FontAwesomeIcon icon={faPlus}/>
+                    <FontAwesomeIcon icon={faGear} className="glassy gear" onClick={openRoomSettings} ref={roomSettingsRef}/>
                     <h2>Raum erstellen</h2>
                 </Link>
 
