@@ -16,6 +16,7 @@
   position: absolute
   z-index: 11
   padding: 0 0 1rem 0
+  animation: dialogFade 0.3s
 
   .dialog-header
     display: flex
@@ -53,3 +54,26 @@
   svg:nth-child(2)
     color: $error
     cursor: pointer
+
+.dialog-closed
+  opacity: 0
+  animation: dialogFadeOut 0.3s
+  display: none
+
+@keyframes dialogFadeOut
+  from
+    transform: scale(1)
+    opacity: 1
+    display: block
+  to
+    transform: scale(0)
+    opacity: 0
+    display: none
+
+@keyframes dialogFade
+  from
+    transform: scale(0)
+    opacity: 0
+  to
+    transform: scale(1)
+    opacity: 1
