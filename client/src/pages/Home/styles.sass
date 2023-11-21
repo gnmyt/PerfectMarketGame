@@ -62,6 +62,7 @@
   justify-content: center
   padding: 2rem 0
   width: 10rem
+  height: 8.5rem
   gap: 1rem
   color: $text
   text-decoration: none
@@ -80,6 +81,17 @@
 
   &:active
     transform: scale(0.95) translateY(0.5rem)
+
+.create-btn
+  .gear
+    display: none
+    padding: 1rem
+    font-size: 22pt
+  &:hover
+    .gear
+      display: block
+    svg:not(.gear)
+      display: none
 
 @media screen and (max-width: 1130px)
   .create-btn
