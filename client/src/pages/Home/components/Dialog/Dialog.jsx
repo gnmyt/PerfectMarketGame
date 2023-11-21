@@ -4,13 +4,13 @@ import {faGear, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useContext} from "react";
 import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
 
-export const Dialog = ({onClose}) => {
+export const Dialog = ({onClose, open}) => {
 
     const {rounds, updateRounds} = useContext(SettingsContext);
 
     return (
         <>
-            <div className="glassy dialog">
+            <div className={"glassy dialog" + (open ? "" : " dialog-closed")}>
                 <div className="dialog-header">
                     <div className="dialog-title">
                         <FontAwesomeIcon icon={faGear} />
@@ -28,7 +28,7 @@ export const Dialog = ({onClose}) => {
                     
                 </div>
             </div>
-            <div className="dialog-overlay" onClick={onClose} />
+            {open && <div className="dialog-overlay" onClick={onClose} />}
         </>
     )
 }
