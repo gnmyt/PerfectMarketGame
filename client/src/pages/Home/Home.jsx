@@ -28,7 +28,7 @@ export const Home = () => {
 
     return (
         <div className="home-page">
-            {settingsOpen && <Dialog onClose={openRoomSettings}/>}
+            <Dialog onClose={openRoomSettings} open={settingsOpen}/>
             <div className="glassy info-area">
                 <h2>Worum geht's?</h2>
                 <div className="info-area-inner">
