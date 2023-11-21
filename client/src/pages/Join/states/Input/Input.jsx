@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export const Input = ({setState, capital}) => {
+export const Input = ({setState, capital, setCost, setWin}) => {
 
     const [price, setPrice] = useState(1000);
     const [amount, setAmount] = useState(10);
@@ -35,6 +35,11 @@ export const Input = ({setState, capital}) => {
         return () => clearTimeout(timeout);
     }, [error]);
 
+    useEffect(() => {
+        setCost(1000 * amount + 4000);
+        setWin((price * amount) - (1000 * amount + 4000));
+    }, [price, amount]);
+
     return (
         <>
             {error && <div className="error">
@@ -48,7 +53,7 @@ export const Input = ({setState, capital}) => {
             </div>
             <div className="input-area">
                 <h3>Absatzmenge</h3>
-                <input type="number" placeholder="Menge" className="glassy" min={0} max={20}
+                <input type="number" placeholder="Menge" className="glassy" min={1} max={20}
                        onChange={(e) => e.target.value <= 20 && setAmount(e.target.value)} value={amount}/>
             </div>
             <Button text="Abgeben" onClick={submit} icon={faPaperPlane} />
