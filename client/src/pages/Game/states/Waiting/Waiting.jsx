@@ -56,7 +56,11 @@ export const Waiting = ({setState}) => {
 
         let last = names.pop();
 
-        return <><span>{names.join(", ")}</span> und <span>{last}</span></>;
+        return <>{names.map((name, index) => {
+            if (index === names.length - 1) return <span>{name}</span>;
+
+            return <><span>{name}</span>, </>;
+        })} und <span>{last}</span></>;
     }
 
     return (
