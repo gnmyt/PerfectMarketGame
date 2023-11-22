@@ -21,7 +21,7 @@ const localeOptions = {
 export const Calculate = ({setState, currentRound}) => {
     const {round, getGroupById, updateCapital, endRound, setRoundHistory} = useContext(GroupContext);
 
-    const {rounds} = useContext(SettingsContext);
+    const {rounds, demandTable} = useContext(SettingsContext);
 
     const navigate = useNavigate();
 
@@ -84,7 +84,13 @@ export const Calculate = ({setState, currentRound}) => {
 
         avg /= amount;
 
-        setNachfrage(avg < 1800 ? 50 : avg > 2200 ? 30 : 40);
+        let nachfrage = 0;
+        for (let key in demandTable) {
+            if (avg >= parseInt(key)) nachfrage = demandTable[key];
+        }
+
+        setNachfrage(nachfrage);
+
         setAnimatedGroups([]);
     }, []);
 
