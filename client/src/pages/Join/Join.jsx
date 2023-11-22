@@ -51,6 +51,7 @@ export const Join = () => {
                 <h3>Produktionskosten: <span className="in-red">- {cost.toLocaleString("de-DE", localeOptions)} €</span></h3>
                 {maxWin > 0 && <h3>Potenzieller Gewinn: <span className="in-green">+ {maxWin.toLocaleString("de-DE", localeOptions)} €</span></h3>}
                 {maxWin < 0 && <h3>Potenzieller Gewinn: <span className="in-red">- {maxWin.toLocaleString("de-DE", localeOptions)} €</span></h3>}
+                {maxWin === 0 && <h3>Potenzieller Gewinn: <span className="in-yellow">0 €</span></h3>}
             </div>}
             {state === "join" && <Code setState={setState}/>}
             {state === "waiting" && <FontAwesomeIcon icon={faHourglassHalf} bounce className="waiting-icon" style={{marginTop: "1rem"}} /> }
