@@ -8,6 +8,7 @@ import {Navigate} from "react-router";
 import Sound from "react-sound";
 import BackgroundMusic from "@/common/sounds/background.mp3";
 import {MusicContext} from "@/common/contexts/MusicContext.jsx";
+import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
 
 export const Waiting = ({setState}) => {
 
@@ -18,6 +19,7 @@ export const Waiting = ({setState}) => {
     const [readyGroups, setReadyGroups] = useState([]);
     const [firstHint, setFirstHint] = useState(true);
     const {musicEnabled} = useContext(MusicContext);
+    const {demandTable} = useContext(SettingsContext);
 
     useEffect(() => {
         socket.on("RECEIVED", (submission) => {
@@ -89,11 +91,16 @@ export const Waiting = ({setState}) => {
                     <h2>Die Nachfrage</h2>
                     <p>Die Nachfrage berechnet sich aus dem <b>Durchschnittspreis.</b></p>
 
-                    <p>Bei weniger als <span>1800€</span> liegt die Nachfrage bei <span>50</span>.</p>
+                        <p>Bei weniger als <span>{Object.keys(demandTable)[1]}€</span> liegt die Nachfrage
+                            bei <span>{Object.values(demandTable)[0]}</span>.</p>
 
-                    <p>Ist er über <span>1800€</span> liegt die Nachfrage bei <span>40</span>.</p>
-
-                    <p>Bei mehr als <span>2200€</span> liegt die Nachfrage bei <span>30</span>.</p>
+                    {Object.keys(demandTable).map((key, index) => {
+                        if (index === 0) return;
+                        return (
+                            <p key={index}>Bei einem Durchschnittspreis ab <span>{key}€</span> liegt die Nachfrage
+                                bei <span>{demandTable[key]}</span>.</p>
+                        );
+                    })}
                     </>}
                 </div>
 
