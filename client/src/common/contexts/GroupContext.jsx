@@ -8,6 +8,8 @@ export const GroupProvider = ({children}) => {
     const [allGroups, setAllGroups] = useState([]);
     const [groups, setGroups] = useState([]);
     const [round, setRound] = useState([]);
+    const [roundHistory, setRoundHistory] = useState([]);
+    const [groupName, setGroupName] = useState("");
 
     const handleJoin = (group) => {
         setGroups(groups => [...groups, {...group, capital: 25000}]);
@@ -64,7 +66,8 @@ export const GroupProvider = ({children}) => {
     }, []);
 
     return (
-        <GroupContext.Provider value={{groups, round, handleRound, getGroupById, updateCapital, endRound, allGroups, resetGame}}>
+        <GroupContext.Provider value={{groups, round, handleRound, getGroupById, updateCapital, endRound,
+            allGroups, resetGame, groupName, setGroupName, roundHistory, setRoundHistory}}>
             {children}
         </GroupContext.Provider>
     )
