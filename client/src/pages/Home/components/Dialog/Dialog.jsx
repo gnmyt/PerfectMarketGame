@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGear, faPlus, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useContext} from "react";
 import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
-import Button from "@/common/components/Button/index.js";
+import Button from "@/common/components/Button";
 
 export const Dialog = ({onClose, open}) => {
 
