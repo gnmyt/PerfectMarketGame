@@ -1,10 +1,11 @@
 import Button from "@/common/components/Button";
 import {faRightToBracket, faWarning} from "@fortawesome/free-solid-svg-icons";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
 import "./styles.sass";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useParams} from "react-router";
+import {GroupContext} from "@/common/contexts/GroupContext.jsx";
 
 export const Code = ({setState}) => {
 
@@ -12,6 +13,7 @@ export const Code = ({setState}) => {
 
     const [code, setCode] = useState(params.code || "");
     const [company, setCompany] = useState("");
+    const {setGroupName} = useContext(GroupContext);
 
     const updateCompany = (event) => {
         if (event.target.value.length > 20) {
@@ -27,6 +29,7 @@ export const Code = ({setState}) => {
     const joinRoom = () => {
         socket.emit("JOIN_ROOM", {code, name: company}, (data) => {
             if (data) {
+                setGroupName(company);
                 setState("waiting");
             } else {
                 setError("Raum nicht gefunden");
