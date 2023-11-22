@@ -1,11 +1,26 @@
 @import "@styles/colors"
 
 .end-page
+  display: grid
+  place-items: center
+
+.end-content
+  width: 65rem
   display: flex
-  justify-content: center
-  align-items: center
   flex-direction: column
   gap: 1rem
+
+  .end-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    h2
+      margin: 0
+
+  .end-actions
+    display: flex
+    gap: 1rem
 
   .group
     display: flex
