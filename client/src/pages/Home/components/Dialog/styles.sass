@@ -25,6 +25,20 @@
     padding: 0 1.5rem
     gap: 4rem
 
+  .dialog-sub
+    display: flex
+    align-items: center
+    gap: 1rem
+
+    h2
+      margin: 0
+
+    hr
+      width: 100%
+      margin: 0
+      border: 1px solid $text
+      border-radius: 1rem
+
   .dialog-title
     display: flex
     align-items: center
@@ -32,17 +46,38 @@
 
   .dialog-content
     margin: 0 1rem
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    max-height: 20rem
+    overflow-y: scroll
+    overflow-x: hidden
+
+    h3
+      margin: 0
+      color: $primary
 
   .dialog-item
     display: flex
     align-items: center
     justify-content: space-between
 
+    .dialog-left
+      display: flex
+      align-items: center
+      gap: 1rem
+
+    .dialog-right
+      display: flex
+      align-items: center
+      gap: 1rem
+      margin-right: 0.5rem
+
     h2
       margin: 0
 
     input
-      width: 3rem
+      width: 5rem
       padding: 0.5rem 0.5rem
       color: $text
       font-weight: 600
@@ -59,6 +94,10 @@
   opacity: 0
   animation: dialogFadeOut 0.3s
   display: none
+
+.demand-area
+  display: flex
+  justify-content: right
 
 @keyframes dialogFadeOut
   from
