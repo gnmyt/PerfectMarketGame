@@ -19,7 +19,7 @@ const localeOptions = {
 }
 
 export const Calculate = ({setState, currentRound}) => {
-    const {round, getGroupById, updateCapital, endRound} = useContext(GroupContext);
+    const {round, getGroupById, updateCapital, endRound, setRoundHistory} = useContext(GroupContext);
 
     const {rounds} = useContext(SettingsContext);
 
@@ -41,10 +41,12 @@ export const Calculate = ({setState, currentRound}) => {
 
         let profit = sold * current.price - (current.amount * 1000 + 4000);
 
-        setAnimatedGroups(old => [...old, {...current, profit, name: getGroupById(current.id).name, sold,
-            newCapital: getGroupById(current.id).capital + profit}]);
+        let currentRound = {...current, profit, name: getGroupById(current.id).name, sold,
+            newCapital: getGroupById(current.id).capital + profit};
 
-        updateCapital(current.id, getGroupById(current.id).capital + profit);
+        setAnimatedGroups(old => [...old, currentRound]);
+
+        updateCapital(current.id, currentRound.newCapital);
     }
 
     useEffect(() => {
@@ -62,6 +64,8 @@ export const Calculate = ({setState, currentRound}) => {
 
     useEffect(() => {
         if (animatedGroups.length === 0) return;
+
+        setRoundHistory(history => [...history, animatedGroups]);
 
         const timeout = setTimeout(() => {
             setShowNewCapital(true);
@@ -144,7 +148,7 @@ export const Calculate = ({setState, currentRound}) => {
                         {showNewCapital && currentRound >= rounds && <Button text="Spiel beenden" onClick={() => navigate("/end")} icon={faStop}/>}
                     </div>
                 </div>
-                <div className="glassy customer" style={{marginTop: (6.2 * animatedGroups.length) + "rem"}}>
+                <div className="glassy customer" style={{marginTop: (6.2 * animatedGroups.length + 5.2) + "rem"}}>
                     <FontAwesomeIcon icon={faShoppingCart} />
                     <div className="customer-item">
                         <p>Nachfrage</p>
