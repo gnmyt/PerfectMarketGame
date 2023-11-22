@@ -116,6 +116,11 @@ io.on("connection", (socket) => {
     socket.on("UPDATE_CAPITAL", (data, callback = () => {}) => {
         const {id, capital} = data;
 
+        if (rooms[getRoomCodeBySocketId(socket.id)].host !== socket.id) {
+            callback(false);
+            return;
+        }
+
         if (!id || capital === undefined) {
             callback(false);
             return;
@@ -125,7 +130,11 @@ io.on("connection", (socket) => {
 
         if (capital < 5000) {
             socket.emit("LEFT", {id: socket.id});
-            io.sockets.sockets.get(id).disconnect();
+
+            rooms[getRoomCodeBySocketId(socket.id)].players = rooms[getRoomCodeBySocketId(socket.id)].players
+                .filter((player) => player.id !== socket.id);
+
+            io.to(id).emit("GAME_OVER");
         }
 
         callback(true);
