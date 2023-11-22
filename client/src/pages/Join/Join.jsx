@@ -33,12 +33,12 @@ export const Join = () => {
     }
 
     useEffect(() => {
-        socket.on("disconnect", handleEnd);
+        socket.on("GAME_OVER", handleEnd);
         socket.on("SUBMISSION_READY", onSubmissionReady);
         socket.on("CAPITAL", onCapitalChange);
 
         return () => {
-            socket.off("disconnect", handleEnd);
+            socket.off("GAME_OVER", handleEnd);
             socket.off("SUBMISSION_READY", onSubmissionReady);
             socket.off("CAPITAL", onCapitalChange);
         }
