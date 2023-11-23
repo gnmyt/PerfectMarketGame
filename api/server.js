@@ -5,6 +5,40 @@ const io = require("socket.io")(httpServer, {cors: {origin: "*", connectionState
 const rooms = {};
 
 /**
+ * Validates the provided input to create a room
+ * @param data The required data
+ * @param callback The callback
+ * @returns {boolean} true if the provided input is valid, false otherwise
+ */
+const validateInput = (data, callback) => {
+    if (Object.keys(data).length !== 5 && data.startCapital && data.costPerRound && data.costPerCake
+        && data.maxProduction && data.maxPrice) {
+        callback(false);
+        return false;
+    }
+
+    try {
+        [data.startCapital, data.costPerRound, data.costPerCake, data.maxProduction, data.maxPrice].forEach((value) => {
+            if (value === undefined) {
+                callback(false);
+                return false;
+            }
+
+            const valueInt = parseInt(value);
+            if (isNaN(valueInt)) {
+                callback(false);
+                return false;
+            }
+        });
+    } catch (e) {
+        callback(false);
+        return false;
+    }
+
+    return true;
+}
+
+/**
  * Generates a random room code.
  * @returns {*|string} A random room code.
  */
@@ -40,8 +74,15 @@ io.on("connection", (socket) => {
             return;
         }
 
+        if (Object.keys(rooms).length >= 100) {
+            callback(false);
+            return;
+        }
+
+        if (!validateInput(data, callback)) return;
+
         const code = generateRoomCode();
-        rooms[code] = {host: socket.id, players: []};
+        rooms[code] = {host: socket.id, players: [], settings: data};
 
         callback({code});
 
@@ -68,6 +109,8 @@ io.on("connection", (socket) => {
             rooms[code].players.push({id: socket.id, name});
             io.to(rooms[code].host).emit("JOINED", {id: socket.id, name});
             callback(true);
+            socket.emit("CAPITAL", {capital: rooms[code].settings.startCapital});
+            socket.emit("SETTINGS", rooms[code].settings);
         } else {
             callback(false);
         }
@@ -101,7 +144,8 @@ io.on("connection", (socket) => {
             return;
         }
 
-        if (price < 0 || price > 10000 || amount < 0 || amount > 20) {
+        if (price < 0 || price > rooms[getRoomCodeBySocketId(socket.id)].settings.maxPrice ||
+            amount < 0 || amount > rooms[getRoomCodeBySocketId(socket.id)].settings.maxProduction) {
             callback(false);
             return;
         }
@@ -128,7 +172,10 @@ io.on("connection", (socket) => {
 
         io.to(id).emit("CAPITAL", {capital});
 
-        if (capital < 5000) {
+        let cost = rooms[getRoomCodeBySocketId(socket.id)].settings.costPerRound
+            + rooms[getRoomCodeBySocketId(socket.id)].settings.costPerCake;
+
+        if (capital < cost) {
             socket.emit("LEFT", {id: socket.id});
 
             rooms[getRoomCodeBySocketId(socket.id)].players = rooms[getRoomCodeBySocketId(socket.id)].players
