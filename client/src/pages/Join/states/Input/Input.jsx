@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export const Input = ({setState, capital, setCost, setWin}) => {
+export const Input = ({setState, capital, setCost, setWin, settings}) => {
 
     const [price, setPrice] = useState(1000);
     const [amount, setAmount] = useState(10);
@@ -12,7 +12,7 @@ export const Input = ({setState, capital, setCost, setWin}) => {
     const [error, setError] = useState("");
 
     const submit = () => {
-        if ((1000 * amount + 4000) > capital) {
+        if ((settings.costPerCake * amount + settings.costPerRound) > capital) {
             setError("Zu wenig Kapital");
             return;
         }
@@ -36,9 +36,11 @@ export const Input = ({setState, capital, setCost, setWin}) => {
     }, [error]);
 
     useEffect(() => {
-        setCost(1000 * amount + 4000);
-        setWin((price * amount) - (1000 * amount + 4000));
+        setCost(settings.costPerCake * amount + settings.costPerRound);
+        setWin((price * amount) - (settings.costPerCake * amount + settings.costPerRound));
     }, [price, amount]);
+
+    if (!settings || Object.keys(settings).length === 0) return null;
 
     return (
         <>
@@ -48,13 +50,13 @@ export const Input = ({setState, capital, setCost, setWin}) => {
             </div>}
             <div className="input-area">
                 <h3>Preis</h3>
-                <input type="number" placeholder="Preis" className="glassy" min={0} max={10000}
-                       onChange={(e) => e.target.value <= 10000 && setPrice(e.target.value)} value={price}/>
+                <input type="number" placeholder="Preis" className="glassy" min={0} max={settings.maxPrice}
+                       onChange={(e) => e.target.value <= settings.maxPrice && setPrice(e.target.value)} value={price}/>
             </div>
             <div className="input-area">
                 <h3>Absatzmenge</h3>
-                <input type="number" placeholder="Menge" className="glassy" min={1} max={20}
-                       onChange={(e) => e.target.value <= 20 && setAmount(e.target.value)} value={amount}/>
+                <input type="number" placeholder="Menge" className="glassy" min={1} max={settings.maxProduction}
+                       onChange={(e) => e.target.value <= settings.maxProduction && setAmount(e.target.value)} value={amount}/>
             </div>
             <Button text="Abgeben" onClick={submit} icon={faPaperPlane} />
         </>
