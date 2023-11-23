@@ -8,8 +8,8 @@ import Button from "@/common/components/Button";
 export const Dialog = ({onClose, open}) => {
 
     const {
-        rounds, updateRounds, demandTable, updateDemandTable, startCapital, setStartCapital, costPerCake,
-        setCostPerCake, costPerRound, setCostPerRound, maxProduction, setMaxProduction, maxPrice, setMaxPrice
+        rounds, updateRounds, demandTable, updateDemandTable, startCapital, updateStartCapital, costPerCake,
+        updateCostPerCake, costPerRound, updateCostPerRound, maxProduction, updateProduction, maxPrice, updatePrice
     } = useContext(SettingsContext);
 
     const deleteDemand = (key) => {
@@ -65,31 +65,31 @@ export const Dialog = ({onClose, open}) => {
                     <div className="dialog-item">
                         <h2>Startkapital</h2>
                         <input type="number" className="glassy input" value={startCapital}
-                               onChange={(e) => setStartCapital(parseInt(e.target.value))}/>
+                               onChange={(e) => updateStartCapital(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-item">
                         <h2>Kosten pro Kochen</h2>
                         <input type="number" className="glassy input" value={costPerCake}
-                               onChange={(e) => setCostPerCake(parseInt(e.target.value))}/>
+                               onChange={(e) => updateCostPerCake(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-item">
                         <h2>Kosten pro Runde</h2>
                         <input type="number" className="glassy input" value={costPerRound}
-                               onChange={(e) => setCostPerRound(parseInt(e.target.value))}/>
+                               onChange={(e) => updateCostPerRound(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-item">
                         <h2>Absatzmenge</h2>
                         <input type="number" className="glassy input" value={maxProduction}
-                               onChange={(e) => setMaxProduction(parseInt(e.target.value))}/>
+                               onChange={(e) => updateProduction(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-item">
                         <h2>Absatzpreis</h2>
                         <input type="number" className="glassy input" value={maxPrice}
-                               onChange={(e) => setMaxPrice(parseInt(e.target.value))}/>
+                               onChange={(e) => updatePrice(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-sub">
