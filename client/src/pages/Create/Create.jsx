@@ -9,6 +9,7 @@ import {useNavigate} from "react-router";
 import Sound from "react-sound";
 import ThemeSound from "@/common/sounds/end.mp3";
 import {MusicContext} from "@/common/contexts/MusicContext.jsx";
+import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
 
 export const DOMAIN = "pmg.gnmyt.dev";
 export const BASE_URL = `https://${DOMAIN}/join/`;
@@ -20,9 +21,10 @@ export const Create = () => {
 
     const {musicEnabled} = useContext(MusicContext);
     const {groups, resetGame} = useContext(GroupContext);
+    const {startCapital, costPerCake, costPerRound, maxProduction, maxPrice} = useContext(SettingsContext);
 
     const getRoomCode = () => {
-        socket.emit("CREATE_ROOM", undefined, (data) => {
+        socket.emit("CREATE_ROOM", {startCapital, costPerCake, costPerRound, maxProduction, maxPrice}, (data) => {
             setCode(code => code !== "LOADING" ? code : data.code);
         });
     }
