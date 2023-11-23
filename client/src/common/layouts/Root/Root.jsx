@@ -22,22 +22,21 @@ export const Root = () => {
 
     return (
         <MusicProvider>
-            <GroupProvider>
-                <div className="root">
-                    <Header/>
+            <SettingsProvider>
+                <GroupProvider>
+                    <div className="root">
+                        <Header/>
 
-                    <main>
-                        <SettingsProvider>
+                        <main>
                             {outlet}
-                        </SettingsProvider>
-                    </main>
+                        </main>
 
-                    <Footer/>
+                        <Footer/>
 
-                    <Background/>
-
-                </div>
-            </GroupProvider>
+                        <Background/>
+                    </div>
+                </GroupProvider>
+            </SettingsProvider>
         </MusicProvider>
-);
+    );
 }
