@@ -43,8 +43,6 @@ export const Calculate = ({setState, currentRound}) => {
         let currentRound = {...current, profit, name: getGroupById(current.id).name, sold,
             newCapital: getGroupById(current.id).capital + profit};
 
-        console.log(currentRound);
-
         setAnimatedGroups(old => [...old, currentRound]);
 
         updateCapital(current.id, currentRound.newCapital);
