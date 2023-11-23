@@ -20,6 +20,31 @@ export const SettingsProvider = ({children}) => {
         setRounds(newValue);
     }
 
+    const updateStartCapital = (newValue) => {
+        localStorage.setItem("startCapital", newValue);
+        setStartCapital(newValue);
+    }
+
+    const updateCostPerCake = (newValue) => {
+        localStorage.setItem("costPerCake", newValue);
+        setCostPerCake(newValue);
+    }
+
+    const updateCostPerRound = (newValue) => {
+        localStorage.setItem("costPerRound", newValue);
+        setCostPerRound(newValue);
+    }
+
+    const updateProduction = (newValue) => {
+        localStorage.setItem("maxProduction", newValue);
+        setMaxProduction(newValue);
+    }
+
+    const updatePrice = (newValue) => {
+        localStorage.setItem("maxProduction", newValue);
+        setMaxPrice(newValue);
+    }
+
     const updateDemandTable = (newValue) => {
         localStorage.setItem("demandTable", JSON.stringify(newValue));
         setDemandTable(newValue);
@@ -27,9 +52,9 @@ export const SettingsProvider = ({children}) => {
 
     return (
         <SettingsContext.Provider value={{
-            rounds, updateRounds, demandTable, updateDemandTable, startCapital, setStartCapital,
-            costPerCake, setCostPerCake, costPerRound, setCostPerRound, maxProduction, setMaxProduction,
-            maxPrice, setMaxPrice
+            rounds, updateRounds, demandTable, updateDemandTable, startCapital, updateStartCapital,
+            costPerCake, updateCostPerCake, costPerRound, updateCostPerRound, maxProduction, updateProduction,
+            maxPrice, updatePrice
         }}>
             {children}
         </SettingsContext.Provider>
