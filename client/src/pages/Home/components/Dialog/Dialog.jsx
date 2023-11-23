@@ -7,7 +7,10 @@ import Button from "@/common/components/Button";
 
 export const Dialog = ({onClose, open}) => {
 
-    const {rounds, updateRounds, demandTable, updateDemandTable} = useContext(SettingsContext);
+    const {
+        rounds, updateRounds, demandTable, updateDemandTable, startCapital, setStartCapital, costPerCake,
+        setCostPerCake, costPerRound, setCostPerRound, maxProduction, setMaxProduction, maxPrice, setMaxPrice
+    } = useContext(SettingsContext);
 
     const deleteDemand = (key) => {
         let newDemandTable = {...demandTable};
@@ -40,10 +43,10 @@ export const Dialog = ({onClose, open}) => {
             <div className={"glassy dialog" + (open ? "" : " dialog-closed")}>
                 <div className="dialog-header">
                     <div className="dialog-title">
-                        <FontAwesomeIcon icon={faGear} />
+                        <FontAwesomeIcon icon={faGear}/>
                         <h2>Spieleinstellungen</h2>
                     </div>
-                    <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+                    <FontAwesomeIcon icon={faXmark} onClick={onClose}/>
                 </div>
                 <div className="dialog-content">
 
@@ -56,7 +59,37 @@ export const Dialog = ({onClose, open}) => {
                     <div className="dialog-item">
                         <h2>Runden</h2>
                         <input type="number" className="glassy input" value={rounds}
-                               onChange={(e) => updateRounds(parseInt(e.target.value))} />
+                               onChange={(e) => updateRounds(parseInt(e.target.value))}/>
+                    </div>
+
+                    <div className="dialog-item">
+                        <h2>Startkapital</h2>
+                        <input type="number" className="glassy input" value={startCapital}
+                               onChange={(e) => setStartCapital(parseInt(e.target.value))}/>
+                    </div>
+
+                    <div className="dialog-item">
+                        <h2>Kosten pro Kochen</h2>
+                        <input type="number" className="glassy input" value={costPerCake}
+                               onChange={(e) => setCostPerCake(parseInt(e.target.value))}/>
+                    </div>
+
+                    <div className="dialog-item">
+                        <h2>Kosten pro Runde</h2>
+                        <input type="number" className="glassy input" value={costPerRound}
+                               onChange={(e) => setCostPerRound(parseInt(e.target.value))}/>
+                    </div>
+
+                    <div className="dialog-item">
+                        <h2>Absatzmenge</h2>
+                        <input type="number" className="glassy input" value={maxProduction}
+                               onChange={(e) => setMaxProduction(parseInt(e.target.value))}/>
+                    </div>
+
+                    <div className="dialog-item">
+                        <h2>Absatzpreis</h2>
+                        <input type="number" className="glassy input" value={maxPrice}
+                               onChange={(e) => setMaxPrice(parseInt(e.target.value))}/>
                     </div>
 
                     <div className="dialog-sub">
@@ -71,24 +104,24 @@ export const Dialog = ({onClose, open}) => {
                                 <div className="dialog-left">
                                     <h2>Ab {key === "0" && "0 €"}</h2>
                                     {key !== "0" && <input type="number" className="glassy input" value={key}
-                                             onChange={(e) => updateDemandKey(key, e)} />}
+                                                           onChange={(e) => updateDemandKey(key, e)}/>}
                                 </div>
                                 <div className="dialog-right">
                                     <input type="number" className="glassy input" value={demandTable[key]}
-                                           onChange={(e) => updateDemand(key, e)} />
-                                    {key !== "0" && <FontAwesomeIcon icon={faTrash} onClick={() => deleteDemand(key)} />}
+                                           onChange={(e) => updateDemand(key, e)}/>
+                                    {key !== "0" && <FontAwesomeIcon icon={faTrash} onClick={() => deleteDemand(key)}/>}
                                 </div>
                             </div>
                         );
                     })}
 
                     <div className="demand-area">
-                        <Button onClick={() => addDemand()} icon={faPlus} text="Hinzufügen" />
+                        <Button onClick={() => addDemand()} icon={faPlus} text="Hinzufügen"/>
                     </div>
-                    
+
                 </div>
             </div>
-            {open && <div className="dialog-overlay" onClick={onClose} />}
+            {open && <div className="dialog-overlay" onClick={onClose}/>}
         </>
     )
 }
