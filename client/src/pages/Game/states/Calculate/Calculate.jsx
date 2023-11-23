@@ -21,7 +21,7 @@ const localeOptions = {
 export const Calculate = ({setState, currentRound}) => {
     const {round, getGroupById, updateCapital, endRound, setRoundHistory} = useContext(GroupContext);
 
-    const {rounds, demandTable} = useContext(SettingsContext);
+    const {rounds, demandTable, costPerCake, costPerRound} = useContext(SettingsContext);
 
     const navigate = useNavigate();
 
@@ -35,14 +35,15 @@ export const Calculate = ({setState, currentRound}) => {
     const animateNext = () => {
         const current = round.shift();
         if (!current) return;
-
         let sold = current.amount < nachfrage ? current.amount : nachfrage;
-        setNachfrage(nachfrage => nachfrage - sold);
 
-        let profit = sold * current.price - (current.amount * 1000 + 4000);
+        setNachfrage(nachfrage => nachfrage - sold);
+        let profit = sold * current.price - (current.amount * costPerCake + costPerRound);
 
         let currentRound = {...current, profit, name: getGroupById(current.id).name, sold,
             newCapital: getGroupById(current.id).capital + profit};
+
+        console.log(currentRound);
 
         setAnimatedGroups(old => [...old, currentRound]);
 
