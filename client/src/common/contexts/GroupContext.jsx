@@ -1,5 +1,6 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {socket} from "@/common/utils/socket.js";
+import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
 
 export const GroupContext = createContext({});
 
@@ -11,8 +12,10 @@ export const GroupProvider = ({children}) => {
     const [roundHistory, setRoundHistory] = useState([]);
     const [groupName, setGroupName] = useState("");
 
+    const {startCapital} = useContext(SettingsContext);
+
     const handleJoin = (group) => {
-        setGroups(groups => [...groups, {...group, capital: 25000}]);
+        setGroups(groups => [...groups, {...group, capital: startCapital}]);
     }
 
     const getGroupById = (id) => {
@@ -24,7 +27,7 @@ export const GroupProvider = ({children}) => {
     }
 
     const handleLeave = (group) => {
-        if (group.capital !== 25000) {
+        if (group.capital !== startCapital) {
             setGroups(groups_ => {
                 const current = groups_.find(g => g.id === group.id);
                 if (current) setAllGroups(all => [...all, current]);
@@ -38,9 +41,7 @@ export const GroupProvider = ({children}) => {
         socket.emit("UPDATE_CAPITAL", {id: groupId, capital: newCapital});
 
         setGroups(groups => groups.map(g => {
-            if (g.id === groupId) {
-                return {...g, capital: newCapital};
-            }
+            if (g.id === groupId) return {...g, capital: newCapital};
             return g;
         }));
     }
