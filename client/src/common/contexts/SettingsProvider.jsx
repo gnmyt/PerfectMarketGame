@@ -9,6 +9,11 @@ export const SettingsProvider = ({children}) => {
         1800: 40,
         2200: 30
     });
+    const [startCapital, setStartCapital] = useState(localStorage.getItem("startCapital") || 25000);
+    const [costPerCake, setCostPerCake] = useState(localStorage.getItem("costPerCake") || 1000);
+    const [costPerRound, setCostPerRound] = useState(localStorage.getItem("costPerRound") || 4000);
+    const [maxProduction, setMaxProduction] = useState(localStorage.getItem("maxProduction") || 20);
+    const [maxPrice, setMaxPrice] = useState(localStorage.getItem("maxPrice") || 10000);
 
     const updateRounds = (newValue) => {
         localStorage.setItem("rounds", newValue);
@@ -21,7 +26,11 @@ export const SettingsProvider = ({children}) => {
     }
 
     return (
-        <SettingsContext.Provider value={{rounds, updateRounds, demandTable, updateDemandTable}}>
+        <SettingsContext.Provider value={{
+            rounds, updateRounds, demandTable, updateDemandTable, startCapital, setStartCapital,
+            costPerCake, setCostPerCake, costPerRound, setCostPerRound, maxProduction, setMaxProduction,
+            maxPrice, setMaxPrice
+        }}>
             {children}
         </SettingsContext.Provider>
     );
