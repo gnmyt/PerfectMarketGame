@@ -125,6 +125,9 @@ io.on("connection", (socket) => {
 
     socket.on("SUBMIT", (data, callback = () => {}) => {
         const {price, amount} = data;
+        const roomCode = getRoomCodeBySocketId(socket.id);
+
+        if (!roomCode) return;
 
         if (price === undefined || amount === undefined) {
             callback(false);
@@ -144,13 +147,12 @@ io.on("connection", (socket) => {
             return;
         }
 
-        if (price < 0 || price > rooms[getRoomCodeBySocketId(socket.id)].settings.maxPrice ||
-            amount < 0 || amount > rooms[getRoomCodeBySocketId(socket.id)].settings.maxProduction) {
+        if (price < 0 || price > rooms[roomCode].settings.maxPrice ||
+            amount < 0 || amount > rooms[roomCode].settings.maxProduction) {
             callback(false);
             return;
         }
 
-        const roomCode = getRoomCodeBySocketId(socket.id);
         const playerName = getPlayerName(socket.id, roomCode);
 
         io.to(rooms[roomCode].host).emit("RECEIVED", {id: socket.id, name: playerName, price, amount});
