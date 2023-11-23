@@ -16,12 +16,17 @@ const localeOptions = {
 export const Join = () => {
     const [state, setState] = useState("join");
 
-    const [capital, setCapital] = useState(25000);
+    const [capital, setCapital] = useState(0);
     const [maxWin, setMaxWin] = useState(0);
     const [cost, setCost] = useState(0);
+    const [settings, setSettings] = useState({});
 
     const handleEnd = () => {
         setState("end");
+    }
+
+    const handleSettings = (data) => {
+        setSettings(data);
     }
 
     const onCapitalChange = (data) => {
@@ -36,11 +41,13 @@ export const Join = () => {
         socket.on("GAME_OVER", handleEnd);
         socket.on("SUBMISSION_READY", onSubmissionReady);
         socket.on("CAPITAL", onCapitalChange);
+        socket.on("SETTINGS", handleSettings);
 
         return () => {
             socket.off("GAME_OVER", handleEnd);
             socket.off("SUBMISSION_READY", onSubmissionReady);
             socket.off("CAPITAL", onCapitalChange);
+            socket.off("SETTINGS", handleSettings);
         }
     }, []);
 
@@ -55,7 +62,7 @@ export const Join = () => {
             </div>}
             {state === "join" && <Code setState={setState}/>}
             {state === "waiting" && <FontAwesomeIcon icon={faHourglassHalf} bounce className="waiting-icon" style={{marginTop: "1rem"}} /> }
-            {state === "input" && <Input setState={setState} capital={capital} setWin={setMaxWin} setCost={setCost}/>}
+            {state === "input" && <Input setState={setState} capital={capital} setWin={setMaxWin} setCost={setCost} settings={settings}/>}
             {state === "end" && <div className="game-end">
                 <h1>Ende</h1>
                 <p>Das Spiel ist vorbei!</p>
