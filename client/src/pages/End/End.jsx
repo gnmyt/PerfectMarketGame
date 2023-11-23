@@ -8,6 +8,7 @@ import {MusicContext} from "@/common/contexts/MusicContext.jsx";
 import {Navigate} from "react-router";
 import Button from "@/common/components/Button";
 import {faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {SettingsContext} from "@/common/contexts/SettingsProvider.jsx";
 
 const localeOptions = {
     style: "decimal",
@@ -20,6 +21,7 @@ export const End = () => {
 
     const {groups, allGroups, roundHistory} = useContext(GroupContext);
     const {musicEnabled} = useContext(MusicContext);
+    const {startCapital, costPerRound, costPerCake} = useContext(SettingsContext);
 
     const [roundShown, setRoundShown] = useState(roundHistory.length + 1);
 
@@ -105,16 +107,16 @@ export const End = () => {
 
                         <div className="group-item">
                             <p>Gewinn/Verlust</p>
-                            {group.capital - 25000 > 0 &&
-                                <h2 className="group-green">+ {(group.capital - 25000)?.toLocaleString("de-DE", localeOptions)} €</h2>}
-                            {group.capital - 25000 < 0 &&
-                                <h2 className="group-red">- {(group.capital - 25000)?.toLocaleString("de-DE", localeOptions)} €</h2>}
-                            {group.capital - 25000 === 0 && <h2>0 €</h2>}
+                            {group.capital - startCapital > 0 &&
+                                <h2 className="group-green">+ {(group.capital - startCapital)?.toLocaleString("de-DE", localeOptions)} €</h2>}
+                            {group.capital - startCapital < 0 &&
+                                <h2 className="group-red">- {(group.capital - startCapital)?.toLocaleString("de-DE", localeOptions)} €</h2>}
+                            {group.capital - startCapital === 0 && <h2>0 €</h2>}
                         </div>
 
                         <div className="group-item">
                             <p>Firmenwert</p>
-                            <h2>{group.capital < 5000 ? "Pleite" : group.capital?.toLocaleString("de-DE", localeOptions) + " €"}</h2>
+                            <h2>{group.capital < (costPerCake + costPerRound) ? "Pleite" : group.capital?.toLocaleString("de-DE", localeOptions) + " €"}</h2>
                         </div>
                     </div>
                 ))}
