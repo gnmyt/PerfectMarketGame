@@ -19,7 +19,7 @@ export const Waiting = ({setState}) => {
     const [readyGroups, setReadyGroups] = useState([]);
     const [firstHint, setFirstHint] = useState(true);
     const {musicEnabled} = useContext(MusicContext);
-    const {demandTable} = useContext(SettingsContext);
+    const {demandTable, costPerRound, costPerCake} = useContext(SettingsContext);
 
     useEffect(() => {
         socket.on("RECEIVED", (submission) => {
@@ -81,9 +81,9 @@ export const Waiting = ({setState}) => {
                         <h2>Deine Firma</h2>
                         <p>Wie auch im echten Leben fallen deiner Firma <b>Produktionskosten</b> an.</p>
 
-                        <p>Hier fallen pro Runde Fixkosten von <span>4000€</span> an.</p>
+                        <p>Hier fallen pro Runde Fixkosten von <span>{costPerRound}</span> an.</p>
 
-                        <p>Jede Kuchenkiste kostet dich zusätzlich <span>1000€</span> in der Produktion.</p>
+                        <p>Jede Kuchenkiste kostet dich zusätzlich <span>{costPerCake}€</span> in der Produktion.</p>
 
                         <p>Verkaufe also niemals <span>zu günstig</span>, sonst machst du Verluste.</p>
                     </>}
