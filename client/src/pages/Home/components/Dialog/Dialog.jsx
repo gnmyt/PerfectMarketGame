@@ -69,7 +69,7 @@ export const Dialog = ({onClose, open}) => {
                     </div>
 
                     <div className="dialog-item">
-                        <h2>Kosten pro Kochen</h2>
+                        <h2>Kosten pro Kuchen</h2>
                         <input type="number" className="glassy input" value={costPerCake}
                                onChange={(e) => updateCostPerCake(parseInt(e.target.value))}/>
                     </div>
