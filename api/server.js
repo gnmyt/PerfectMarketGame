@@ -142,6 +142,12 @@ io.on("connection", (socket) => {
                 callback(false);
                 return;
             }
+
+            if (priceInt.toString().indexOf(".") !== -1 || amountInt.toString().indexOf(".") !== -1
+                || priceInt.toString().indexOf(",") !== -1 || amountInt.toString().indexOf(",") !== -1) {
+                callback(false);
+                return;
+            }
         } catch (e) {
             callback(false);
             return;
