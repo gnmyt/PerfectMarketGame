@@ -11,6 +11,10 @@ export const Input = ({setState, capital, setCost, setWin, settings}) => {
 
     const [error, setError] = useState("");
 
+    const validate = (e) => {
+        return !(e.target.value.toString().includes(",") || e.target.value.toString().includes("."));
+    }
+
     const submit = () => {
         if ((settings.costPerCake * amount + settings.costPerRound) > capital) {
             setError("Zu wenig Kapital");
@@ -51,12 +55,12 @@ export const Input = ({setState, capital, setCost, setWin, settings}) => {
             <div className="input-area">
                 <h3>Preis</h3>
                 <input type="number" placeholder="Preis" className="glassy" min={0} max={settings.maxPrice}
-                       onChange={(e) => e.target.value <= settings.maxPrice && setPrice(e.target.value)} value={price}/>
+                       onChange={(e) => e.target.value <= settings.maxPrice && validate(e) && setPrice(e.target.value)} value={price}/>
             </div>
             <div className="input-area">
                 <h3>Absatzmenge</h3>
                 <input type="number" placeholder="Menge" className="glassy" min={1} max={settings.maxProduction}
-                       onChange={(e) => e.target.value <= settings.maxProduction && setAmount(e.target.value)} value={amount}/>
+                       onChange={(e) => e.target.value <= settings.maxProduction && validate(e) && setAmount(e.target.value)} value={amount}/>
             </div>
             <Button text="Abgeben" onClick={submit} icon={faPaperPlane} />
         </>
