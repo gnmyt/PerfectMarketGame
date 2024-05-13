@@ -1,6 +1,6 @@
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {cors: {origin: "*", connectionStateRecovery: {
-    maxDisconnectionDuration: 1000}}});
+    maxDisconnectionDuration: 60000}}});
 
 const rooms = {};
 
